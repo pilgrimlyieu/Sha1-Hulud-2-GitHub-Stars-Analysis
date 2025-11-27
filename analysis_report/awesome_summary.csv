@@ -1,0 +1,3 @@
+list_name,total_attacks,attacked_repos_count,total_repos_in_list,attack_coverage_pct
+Awesome-Tauri,24638,244,283,86.22
+Awesome-FastAPI,12346,127,134,94.78
