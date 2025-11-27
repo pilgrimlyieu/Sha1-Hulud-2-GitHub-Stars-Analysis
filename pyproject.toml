@@ -1,0 +1,16 @@
+[project]
+name = "sha1-hulud-2-github-stars-analysis"
+version = "0.1.0"
+description = "Forensic analysis toolkit for the Sha1-Hulud 2.0 supply chain attack on GitHub Stars Spikes phenomenon."
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [ { name = "pilgrimlyieu" } ]
+license = { text = "MIT" }
+keywords = ["security", "forensics", "github", "supply-chain-attack", "data-analysis"]
+dependencies = [
+    "polars>=1.35.2",
+    "httpx>=0.28.1",
+    "plotly[express]>=6.5.0",
+    "tqdm>=4.57.1",
+    "python-dotenv>=1.2.1"
+]

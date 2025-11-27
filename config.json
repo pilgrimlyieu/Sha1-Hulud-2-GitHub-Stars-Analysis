@@ -1,0 +1,15 @@
+{
+  "target_repo": "USER_NAME/REPO_NAME",
+  "attack_start_date": "2025-11-24T00:00:00Z",
+  "exclude_users": [],
+  "awesome_files": {
+    "Awesome-Tauri": "awesome_tauri.csv",
+    "Awesome-FastAPI": "awesome_fastapi.csv"
+  },
+  "output_dir": "analysis_report",
+  "unencrypted_input": "attack_data.csv",
+  "encrypted_output": "attack_data_encrypted.csv",
+  "github_token_env": "GITHUB_TOKEN",
+  "encryption_key_env": "ENCRYPTION_KEY",
+  "concurrency": 10
+}
