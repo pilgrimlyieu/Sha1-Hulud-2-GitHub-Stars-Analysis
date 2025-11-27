@@ -60,6 +60,7 @@ def analyze_attack_data(
         yaxis_title="attack_count"
     )
     fig_owner.write_html(os.path.join(output_dir, "chart_1_top_owners.html"))
+    fig_owner.write_image(os.path.join(output_dir, "chart_1_top_owners.png"))
 
     # Repo stats
     repo_stats = (
@@ -80,6 +81,7 @@ def analyze_attack_data(
         yaxis={"categoryorder": "total ascending"}
     )
     fig_repo.write_html(os.path.join(output_dir, "chart_2_top_repos.html"))
+    fig_repo.write_image(os.path.join(output_dir, "chart_2_top_repos.png"))
 
     # Awesome list cross-check (uses implode to aggregate list)
     if awesome_files:
@@ -145,6 +147,9 @@ def analyze_attack_data(
                 fig_list.write_html(
                     os.path.join(output_dir, f"awesome_chart_{safe_name}.html")
                 )
+                fig_list.write_image(
+                    os.path.join(output_dir, f"awesome_chart_{safe_name}.png")
+                )
 
             except Exception:
                 continue
@@ -169,6 +174,9 @@ def analyze_attack_data(
             )
             fig_summary.write_html(
                 os.path.join(output_dir, "chart_3_awesome_comparison.html")
+            )
+            fig_summary.write_image(
+                os.path.join(output_dir, "chart_3_awesome_comparison.png")
             )
 
     return True
