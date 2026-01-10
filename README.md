@@ -11,6 +11,7 @@ By analyzing data from 101 compromised victim accounts (anonymized), we identifi
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
+- [Star Cleanup Tool](#star-cleanup-tool)
 - [Analysis Results](#analysis-results)
 - [Data Structure](#data-structure)
 - [References](#references)
@@ -78,11 +79,8 @@ uv venv --python 3.13
 
 # Activate (Linux/Mac)
 source .venv/bin/activate
-
 # Activate (Windows PowerShell)
 .venv\Scripts\Activate.ps1
-# Activate (Linux/macOS)
-source .venv/bin/activate
 
 # Install dependencies
 uv sync
@@ -211,6 +209,53 @@ python -m main --encrypt
 python -m analysis
 ```
 
+## Star Cleanup Tool
+
+If your repository was victimized by the Sha1-Hulud 2.0 attack, you can use the **Star Cleanup Tool** in the `tools/` directory to remove malicious stars.
+
+### Quick Start
+
+The cleanup tool identifies compromised accounts by cross-referencing stargazers between your repository and known victimized repositories, then removes their stars using GitHub's block/unblock mechanism.
+
+```bash
+cd tools
+python clean_stars.py
+```
+
+### Requirements
+
+**GitHub Fine-grained Personal Access Token** with:
+- **Read access to starring** - to fetch stargazer lists
+- **Read and Write access to blocking** - to block/unblock users
+
+### Configuration
+
+Edit `tools/clean_stars.py`:
+
+```python
+# Your GitHub token
+GITHUB_TOKEN = "github_pat_11AXXXXXXXXXXXXX"
+
+# Your repository to clean
+MY_REPO = "your-username/your-repo"
+
+# Reference repositories (other confirmed victims)
+REF_REPOS = [
+    "some-username/some-repo",
+    "another-username/another-repo",
+]
+```
+
+The tool will:
+1. Fetch stargazers from your repo and reference repos
+2. Identify overlapping users (likely compromised accounts)
+3. Remove their stars by temporarily blocking and unblocking them
+4. Provide a summary of cleaned stars
+
+**See [tools/README.md](tools/README.md) for detailed documentation, token setup instructions, and usage examples.**
+
+⚠️ **Warning**: Star removal is irreversible. Legitimate users who coincidentally starred both repositories will also lose their star. Choose reference repositories carefully to minimize false positives.
+
 ## Analysis Results
 
 The analysis pipeline produces multiple output formats:
@@ -270,6 +315,9 @@ owner1,repo1
 │   ├── encrypt.py            # Anonymization utilities
 │   ├── analyze.py            # Analysis and visualization
 │   └── config.py             # Configuration loader
+├── tools/                    # Utility scripts
+│   ├── clean_stars.py        # Star cleanup tool
+│   └── README.md             # Cleanup tool documentation
 └── analysis_report/          # Generated outputs
     ├── *.csv                 # Summary tables
     ├── *.html                # Interactive charts
